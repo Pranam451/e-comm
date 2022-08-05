@@ -11,7 +11,7 @@ export const Carousel = () => {
 
   return (
     <div>
-      <AliceCarousel
+      {/* <AliceCarousel
         mouseTracking
         infinite
         disableDotsControls
@@ -21,7 +21,7 @@ export const Carousel = () => {
         //responsive={responsive}
         autoPlay
         items={items}
-      ></AliceCarousel>
+      ></AliceCarousel> */}
     </div>
   );
 };

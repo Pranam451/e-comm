@@ -1,9 +1,15 @@
-import React from "react";
+import { Link, NavLink } from "react-router-dom";
+import { BiBag } from "../icons/Icons";
 
 const Navbar = () => {
   return (
-    <div className="w-full py-3 shadow-lg ">
-      <h1 className="text-black text-3xl text-center">E-Commerce</h1>
+    <div className="flex w-full justify-between shadow-lg px-10 items-center">
+      <Link to="/">
+        <h1 className="text-3xl py-3  font-bold">Ecommerce</h1>
+      </Link>
+      <Link to="/cart">
+        <BiBag className="text-black" />
+      </Link>
     </div>
   );
 };

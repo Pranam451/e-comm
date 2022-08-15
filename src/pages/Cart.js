@@ -8,6 +8,9 @@ const Cart = () => {
   const allItems = cartItems.cart;
   console.log(allItems.length);
   const cartLength = allItems.length;
+
+  const handleIncrement = () => {};
+
   return (
     <div className="w-full px-20 mt-5 ">
       <header className=" border-b border-black ">

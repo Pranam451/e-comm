@@ -10,27 +10,29 @@ import { increment, decrement } from "../redux/features/productSlice";
 const Home = () => {
   const [products, setProducts] = useState(null);
   const [catergory, setCatergory] = useState("all");
+  const [filter, setFilter] = useState("name");
   const dispatch = useDispatch();
   const num = useSelector((state) => state.products.value);
+  const [altFilter, setAltFilter] = useState("");
 
-  console.log(num);
+  console.log(filter);
 
   const fetchProduct = async () => {
     if (catergory === "all") {
-      setProducts(await allProducts());
+      setProducts(await allProducts(filter));
     } else {
-      setProducts(await fetchProductByCatergory(catergory));
+      setProducts(await fetchProductByCatergory(catergory, filter));
     }
   };
   useEffect(() => {
     fetchProduct();
-  }, [catergory]);
+  }, [catergory, filter]);
 
   return (
     <div>
       {/* <Carousel /> */}
       {/* <button onClick={() => setCatergory("earphone")}>TV</button> */}
-      <Menu setCatergory={setCatergory} />
+      <Menu setCatergory={setCatergory} setFilter={setFilter} />
       <div className="w-full grid grid-cols-5 gap-3 px-20">
         {products?.map((product) => {
           return <SingleProduct product={product} key={product.id} />;

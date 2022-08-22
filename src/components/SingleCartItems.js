@@ -47,7 +47,7 @@ const SingleCartItems = ({ item }) => {
       </div>
       <div className="w-1/3">
         <button
-          className="outline"
+          className="border border-gray-1 px-2 rounded bg-gray-400 py-1"
           onClick={() => dispatch(removeCartItem(item.id))}
         >
           Remove

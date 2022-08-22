@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux/es/exports";
 import SingleCartItems from "../components/SingleCartItems";
 
@@ -6,10 +7,15 @@ const Cart = () => {
   const cartItems = useSelector((state) => state.cart);
 
   const allItems = cartItems.cart;
-  console.log(allItems.length);
-  const cartLength = allItems.length;
 
-  const handleIncrement = () => {};
+  const cartLength = allItems.length;
+  //
+  const TotalCartPrice = allItems
+    ?.map((product) => (product?.Newprice ? product.Newprice : product.price))
+    ?.reduce((acc, crr) => {
+      let sum = acc + crr;
+      return sum;
+    }, 0);
 
   return (
     <div className="w-full px-20 mt-5 ">
@@ -19,10 +25,33 @@ const Cart = () => {
           Total <span>{cartLength}</span> items are in cart
         </p>
       </header>
-      <div className="cartItemDiv">
-        {allItems.map((item) => {
-          return <SingleCartItems item={item} key={item.id} />;
-        })}
+      <div
+        className="cartItemDiv overflow-y-scroll  "
+        style={{ height: "60vh" }}
+      >
+        {allItems ? (
+          allItems.map((item) => {
+            return <SingleCartItems item={item} key={item.id} />;
+          })
+        ) : (
+          <div>no item</div>
+        )}
+      </div>{" "}
+      <div className="w-full text-right mt-5 ">
+        <h1 className="font-sans text-3xl font-light">
+          Total: {TotalCartPrice}
+        </h1>
+        <div className="flex items-center my-3 justify-end">
+          <Link to="/">
+            <button className="p-1 bg-transparent font-semibold text-green-600 outline outline-green-600 rounded-md">
+              Back to Store
+            </button>
+          </Link>
+
+          <button className=" cursor-not-allowed p-1 bg-green-600 ml-3 font-semibold text-white outline outline-green-600 rounded-md">
+            Checkout
+          </button>
+        </div>
       </div>
     </div>
   );

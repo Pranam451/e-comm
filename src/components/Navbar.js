@@ -46,10 +46,15 @@ const Navbar = () => {
             )}
           </div>
         </div>
-
-        <Link to="/cart">
-          <BiBag className="text-black hover:text-white text-2xl hover:bg-gray-700 p-1 rounded-full" />
-        </Link>
+        {user ? (
+          <Link to="/cart">
+            <BiBag className="text-black hover:text-white text-2xl hover:bg-gray-700 p-1 rounded-full" />
+          </Link>
+        ) : (
+          <Link to="/login">
+            <BiBag className="text-black hover:text-white text-2xl hover:bg-gray-700 p-1 rounded-full" />
+          </Link>
+        )}
       </div>
     </div>
   );

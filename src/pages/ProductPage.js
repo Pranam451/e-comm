@@ -3,11 +3,16 @@ import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import { Rating } from "@mui/material";
-import AliceCarousel from "react-alice-carousel";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../redux/features/cartSlice";
 
 export const ProductPage = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
   const [product, setProduct] = useState();
+  const cartItems = useSelector((state) => state.cart);
+
+  const allItems = cartItems.cart;
 
   const fetchProduct = async () => {
     const docRef = doc(db, "users", id);
@@ -22,8 +27,6 @@ export const ProductPage = () => {
     fetchProduct();
   }, []);
 
-  const handleDragStart = (e) => e.preventDefault();
-
   return (
     product && (
       <div className="w-full flex justify-evenly">
@@ -34,6 +37,7 @@ export const ProductPage = () => {
           <h1 className="text-black font-bold uppercase text-5xl ">
             {product.name}
           </h1>
+
           <p className="mt-5 text-2xl">{product.description}</p>
           <Rating
             className="my-5"
@@ -43,6 +47,15 @@ export const ProductPage = () => {
             readOnly
           />
           <h1 className="text-5xl text-black font-normal">₹{product.price}</h1>
+          <div className="w-full">
+            {allItems.find((p) => p.id === product.id) ? "hey" : "not"}
+            <button
+              className="bg-green-600 p-2 text-white rounded"
+              onClick={() => dispatch(addToCart(product))}
+            >
+              Add To Cart
+            </button>
+          </div>
         </div>
       </div>
     )

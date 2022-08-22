@@ -1,19 +1,15 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import {
+  removeCartItem,
+  incrementQty,
+  decrementQty,
+} from "../redux/features/cartSlice";
 
 const SingleCartItems = ({ item }) => {
-  const [quanity, setquanity] = useState(1);
+  const dispatch = useDispatch();
 
-  const handleIncrement = (a) => {
-    setquanity(quanity + 1);
-  };
-  const handleDecrement = () => {
-    if (quanity > 1) {
-      setquanity(quanity - 1);
-    } else {
-      setquanity(1);
-    }
-  };
-  console.log();
   return (
     <div className="cartItem flex justify-between items-center py-2 border-b">
       <div className="w-1/4">
@@ -21,7 +17,9 @@ const SingleCartItems = ({ item }) => {
       </div>
       <div className="w-1/3">
         <h1 className="text-lg">{item.name}</h1>
-        <p className="text-md my-1">Black Color</p>
+        <Link to={`../product/${item.id}`}>
+          <p className="text-md text-blue-700 my-1">See Details</p>
+        </Link>
       </div>
 
       <div className="w-1/3">
@@ -29,20 +27,31 @@ const SingleCartItems = ({ item }) => {
       </div>
       <div className="w-1/3">
         <div className="w-50 flex">
-          <button className="border px-2  text-2xl" onClick={handleDecrement}>
+          <button
+            className="border px-2  text-2xl"
+            onClick={() => dispatch(decrementQty(item))}
+          >
             -
           </button>
-          <p className="border px-2  text-2xl">{quanity}</p>
-          <button className="border px-2  text-2xl" onClick={handleIncrement}>
+          <p className="border px-2  text-2xl">{item.qty}</p>
+          <button
+            className="border px-2  text-2xl"
+            onClick={() => dispatch(incrementQty(item))}
+          >
             +
           </button>
         </div>
       </div>
       <div className="w-1/3">
-        <p>{}</p>
+        <p>{item?.Newprice ? item.Newprice : item.price}</p>
       </div>
       <div className="w-1/3">
-        <h1 className="text-lg">Remove</h1>
+        <button
+          className="outline"
+          onClick={() => dispatch(removeCartItem(item.id))}
+        >
+          Remove
+        </button>
       </div>
     </div>
   );

@@ -13,16 +13,19 @@ const SingleProduct = ({ product, user }) => {
 
   return (
     <div className="w-full border flex flex-col justify-between  mx-2 my-2 shadow-lg px-2 py-2 rounded-md">
-      {/* <Link to={`product/${product.id}`}> */}
-      <img src={product.img} loading="lazy" alt="" className="w-full " />
-      {/* </Link> */}
-      <h1 className="text-2xl font-semibold  mt-3 uppercase">{product.name}</h1>
-      <Rating
-        name="size-small"
-        className="mt-1"
-        readOnly
-        defaultValue={product.rating}
-      />
+      <Link to={`product/${product.id}`}>
+        <img src={product.img} loading="lazy" alt="" className="w-full " />
+        {/* </Link> */}
+        <h1 className="text-2xl font-semibold  mt-3 uppercase">
+          {product.name}
+        </h1>
+        <Rating
+          name="size-small"
+          className="mt-1"
+          readOnly
+          defaultValue={product.rating}
+        />
+      </Link>
 
       <h1 className="text-2xl  uppercase">₹{product.price}</h1>
       <div className="flex w-full justify-end">
